@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  analysis-parse-application:
+    build:
+      context: ..
+      dockerfile: ./deploy/Dockerfile
+    container_name: analysis-parse-application
+    env_file:
+      - ../.env
+    ports:
+      - "8008:8008"
+    environment:
+      - DJANGO_SETTINGS_MODULE=checkers_parser.settings
+    volumes:
+      - ../checkers_parser:/code
+
+volumes:
+  code:

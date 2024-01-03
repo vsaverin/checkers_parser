@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "code-analysis-display"
+version = "0.1.0"
+description = ""
+authors = ["vsaverin <vasiliy.saverin@gmail.com>"]
+readme = "README.md"
+packages = [{include = "code_analysis_display"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^5.0.1"
+whitenoise = "^6.6.0"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
