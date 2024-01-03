@@ -18,6 +18,7 @@ downloader = GitLabArtifactsDownloader(
 
 
 class LogsView(View):
+    @superuser_required
     def get(self, request):
         try:
             logs_service = LogsService()
@@ -33,6 +34,7 @@ class LogsView(View):
 
 
 class RadonMiView(View):
+    @superuser_required
     def get(self, request):
         try:
             logs_service = LogsService()
@@ -48,6 +50,7 @@ class RadonMiView(View):
 
 
 class RuffView(View):
+    @superuser_required
     def get(self, request):
         try:
             logs_service = LogsService()
@@ -63,6 +66,7 @@ class RuffView(View):
 
 
 class BanditView(View):
+    @superuser_required
     def get(self, request):
         try:
             logs_service = LogsService()
@@ -78,6 +82,7 @@ class BanditView(View):
 
 
 class GitlabView(View):
+    @superuser_required
     def get(self, request):
         downloader.download_and_extract()
         return redirect("/")
