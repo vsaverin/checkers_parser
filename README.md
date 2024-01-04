@@ -21,6 +21,9 @@ GITLAB_URL = "https://url.com"
 PROJECT_ID = "id"
 JOB_NAME = "your_job_name"
 ACCESS_TOKEN = "access_token"
+POSTGRES_DB = "local_db"
+POSTGRES_USER = "local_user"
+POSTGRES_PASSWORD = "qwerty123321"
 ```
 #### 2.2 In **settings.py** specify your reports filenames:
 ```python
