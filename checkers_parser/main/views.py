@@ -8,12 +8,13 @@ from .downloader import GitLabArtifactsDownloader
 
 from .services import LogsService
 
-superuser_required = method_decorator(staff_member_required(login_url='/admin/'))
+superuser_required = method_decorator(staff_member_required(login_url="/admin/"))
+logs_service = LogsService()
 downloader = GitLabArtifactsDownloader(
     gitlab_url=settings.GITLAB_URL,
     project_id=settings.PROJECT_ID,
     job_name=settings.JOB_NAME,
-    access_token=settings.ACCESS_TOKEN
+    access_token=settings.ACCESS_TOKEN,
 )
 
 
@@ -21,64 +22,52 @@ class LogsView(View):
     @superuser_required
     def get(self, request):
         try:
-            logs_service = LogsService()
-            absolute_path = f'/code/extracted_folder/quality_artifacts/{settings.RADON_CC_FILENAME}'
+            absolute_path = (
+                f"{settings.BASE_ARTIFACTS_PATH}{settings.RADON_CC_FILENAME}"
+            )
             formatted_data = logs_service.get_radon_formatted_data(absolute_path)
         except Exception as e:
             print(e)
             formatted_data = {}
-        return render(
-            request, 'radon_cc.html',
-            {'formatted_data': formatted_data}
-        )
+        return render(request, "radon_cc.html", {"formatted_data": formatted_data})
 
 
 class RadonMiView(View):
     @superuser_required
     def get(self, request):
         try:
-            logs_service = LogsService()
-            absolute_path = f'/code/extracted_folder/quality_artifacts/{settings.RADON_MI_FILENAME}'
+            absolute_path = (
+                f"{settings.BASE_ARTIFACTS_PATH}{settings.RADON_MI_FILENAME}"
+            )
             formatted_data = logs_service.mi_get_radon_formatted_data(absolute_path)
         except Exception as e:
             print(e)
             formatted_data = {}
-        return render(
-            request, 'radon_mi.html',
-            {'formatted_data': formatted_data}
-        )
+        return render(request, "radon_mi.html", {"formatted_data": formatted_data})
 
 
 class RuffView(View):
     @superuser_required
     def get(self, request):
         try:
-            logs_service = LogsService()
-            absolute_path = f'/code/extracted_folder/quality_artifacts/{settings.RUFF_FILENAME}'
+            absolute_path = f"{settings.BASE_ARTIFACTS_PATH}{settings.RUFF_FILENAME}"
             formatted_data = logs_service.get_ruff_formatted_data(absolute_path)
         except Exception as e:
             print(e)
             formatted_data = {}
-        return render(
-            request, 'ruff.html',
-            {'formatted_data': formatted_data}
-        )
+        return render(request, "ruff.html", {"formatted_data": formatted_data})
 
 
 class BanditView(View):
     @superuser_required
     def get(self, request):
         try:
-            logs_service = LogsService()
-            absolute_path = f'/code/extracted_folder/quality_artifacts/{settings.BANDIT_FILENAME}'
+            absolute_path = f"{settings.BASE_ARTIFACTS_PATH}{settings.BANDIT_FILENAME}"
             formatted_data = logs_service.get_bandit_formatted_data(absolute_path)
         except Exception as e:
             print(e)
             formatted_data = {}
-        return render(
-            request, 'bandit.html',
-            {'formatted_data': formatted_data}
-        )
+        return render(request, "bandit.html", {"formatted_data": formatted_data})
 
 
 class GitlabView(View):
