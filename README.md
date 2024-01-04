@@ -41,6 +41,7 @@ ALLOWED_HOSTS = [
 
 ### 3. Build!
 ```commandline
+poetry lock --no-update
 docker-compose -f deploy/docker-compose.yml up --build
 ```
 
