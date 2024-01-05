@@ -6,10 +6,8 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 COPY .. /code/
 
-COPY poetry.lock pyproject.toml /
-RUN curl -sSL https://install.python-poetry.org | python -
-RUN PATH="$PATH:$HOME/.local/bin" && poetry config virtualenvs.create false
-RUN PATH="$PATH:$HOME/.local/bin" && poetry install --no-root
+COPY requirements.txt /
+RUN pip install --no-cache-dir -r /requirements.txt
 
 EXPOSE 8008
 
