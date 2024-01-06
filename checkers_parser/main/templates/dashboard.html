@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block page_header %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col-md-4"> </div>
+    <div class="col-md-4">
+        <h1>Choose project</h1>
+        * You can add new projects in /admin
+      <div class="list-group" style="margin-top: 30px">
+        {% for item in projects %}
+          <a href="/projects/{{ item.id }}" class="list-group-item list-group-item-action">
+            {{ item.project_name }}
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+      <div class="col-md-4"> </div>
+  </div>
+</div>
+{% endblock %}

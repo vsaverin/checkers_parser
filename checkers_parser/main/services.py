@@ -1,5 +1,11 @@
 import json
 
+from .repositories import ProjectsRepository
+from .models import GitlabProject
+from .test_data import test_project_artifacts
+
+repository = ProjectsRepository()
+
 
 class LogsService:
     def generate_string_output(self, values: list[dict]) -> list[str]:
@@ -85,3 +91,15 @@ class LogsService:
                     }
                 )
         return response
+
+    def get_all_artifacts_by_project_id(self, project_id: str) -> dict:
+        # Data for test purposes, will be removed soon
+        return test_project_artifacts
+
+
+class ProjectsService:
+    def get_all_projects(self) -> list[GitlabProject]:
+        return repository.get_all_projects()
+
+    def get_project_data(self, project_id: int) -> GitlabProject:
+        return repository.get_project_by_id(project_id)

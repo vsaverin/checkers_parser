@@ -55,6 +55,7 @@ python3 manage.py createsuperuser
 ```
 
 ## ToDo:
-- Refactoring
-- Multiple projects support
+- ~~Refactoring~~
+- ~~Multiple projects support~~
+- Move Dashboard & Projects to different app
 - Errors catching (with ui)

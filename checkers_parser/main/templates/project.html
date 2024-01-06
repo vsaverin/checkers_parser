@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Analytics</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Back to Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+    {% endblock %}
+
+{% block page_header %}
+  <h1>Project {{project.project_name}}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <h3>Radon Complexity Reports</h3>
+      <div class="list-group" style="height: 75vh; overflow-y: scroll;">
+        {% for item in project_artifacts.radon_cc %}
+        <div class="list-group-item list-group-item-action">
+            <strong>File:</strong> {{ item.in_file }}<br>
+            <pre>
+                {{ item.value }}
+            </pre>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h3>Radon Maintainability Reports</h3>
+      <div class="list-group" style="height: 75vh; overflow-y: scroll;">
+        {% for item in project_artifacts.radon_mi %}
+        <div class="list-group-item list-group-item-action">
+            <strong>File:</strong> {{ item.in_file }}<br>
+            <pre>
+                {{ item.value }}
+            </pre>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h3>Ruff Reports</h3>
+      <div class="list-group" style="height: 75vh; overflow-y: scroll;">
+        {% for item in project_artifacts.ruff %}
+        <div class="list-group-item list-group-item-action">
+            <strong>File:</strong> {{ item.in_file }}<br>
+            <pre>
+                {{ item.value }}
+            </pre>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <h3>Bandit reports</h3>
+      <div class="list-group" style="height: 75vh; overflow-y: scroll;">
+        {% for item in project_artifacts.bandit %}
+        <div class="list-group-item list-group-item-action">
+            <strong>File:</strong> {{ item.in_file }}<br>
+            <pre>
+                {{ item.value }}
+            </pre>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

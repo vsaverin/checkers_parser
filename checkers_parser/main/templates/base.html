@@ -36,9 +36,11 @@
   </div>
     {% endblock %}
 </nav>
+{% block page_header %}
 <h1>Logs Display</h1>
 <button id="updateGitlabData" class="btn btn-primary">Update GitLab Data</button>
 <p id="updateMessage" style="display: none; color: green;">Data updated successfully</p>
+{% endblock %}
 <script>
     $('#updateGitlabData').on('click', function() {
         $.ajax({
@@ -66,6 +68,12 @@
         {% endfor %}
     </ul>
 {% endblock %}
-
+<footer class="footer">
+    <div class="container text-center">
+        <p>Find me on:</p>
+        <a href="https://github.com/vsaverin" class="btn btn-default" target="_blank">GitHub</a>
+        <a href="https://t.me/vs_python/" class="btn btn-default" target="_blank">Telegram</a>
+    </div>
+</footer>
 </body>
 </html>
