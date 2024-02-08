@@ -13,16 +13,18 @@ logs_service = LogsService()
 projects_service = ProjectsService()
 downloader = GitLabArtifactsDownloader(
     gitlab_url=settings.GITLAB_URL,
-    project_id=settings.PROJECT_ID,
-    job_name=settings.JOB_NAME,
     access_token=settings.ACCESS_TOKEN,
 )
 
 
 class GitlabView(View):
     @superuser_required
-    def get(self, request):
-        downloader.download_and_extract()
+    def get(self, request, project_id: int):
+        project_data = projects_service.get_project_data(project_id)
+        downloader.download_and_extract(
+            project_id=project_id,
+            job_name=project_data.analysis_job_name
+        )
         return redirect("/")
 
 

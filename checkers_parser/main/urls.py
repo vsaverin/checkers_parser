@@ -9,5 +9,5 @@ from .views import (
 urlpatterns = [
     path("", DashboardView.as_view()),
     path("projects/<int:project_id>/", DisplayProjectView.as_view()),
-    path("gitlab-data/update/", GitlabView.as_view()),
+    path("gitlab-data/update/<int:project_id>/", GitlabView.as_view()),
 ]
