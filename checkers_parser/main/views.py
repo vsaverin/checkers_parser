@@ -19,58 +19,6 @@ downloader = GitLabArtifactsDownloader(
 )
 
 
-class LogsView(View):
-    @superuser_required
-    def get(self, request):
-        try:
-            absolute_path = (
-                f"{settings.BASE_ARTIFACTS_PATH}{settings.RADON_CC_FILENAME}"
-            )
-            formatted_data = logs_service.get_radon_formatted_data(absolute_path)
-        except Exception as e:
-            print(e)
-            formatted_data = {}
-        return render(request, "radon_cc.html", {"formatted_data": formatted_data})
-
-
-class RadonMiView(View):
-    @superuser_required
-    def get(self, request):
-        try:
-            absolute_path = (
-                f"{settings.BASE_ARTIFACTS_PATH}{settings.RADON_MI_FILENAME}"
-            )
-            formatted_data = logs_service.mi_get_radon_formatted_data(absolute_path)
-        except Exception as e:
-            print(e)
-            formatted_data = {}
-        return render(request, "radon_mi.html", {"formatted_data": formatted_data})
-
-
-class RuffView(View):
-    @superuser_required
-    def get(self, request):
-        try:
-            absolute_path = f"{settings.BASE_ARTIFACTS_PATH}{settings.RUFF_FILENAME}"
-            formatted_data = logs_service.get_ruff_formatted_data(absolute_path)
-        except Exception as e:
-            print(e)
-            formatted_data = {}
-        return render(request, "ruff.html", {"formatted_data": formatted_data})
-
-
-class BanditView(View):
-    @superuser_required
-    def get(self, request):
-        try:
-            absolute_path = f"{settings.BASE_ARTIFACTS_PATH}{settings.BANDIT_FILENAME}"
-            formatted_data = logs_service.get_bandit_formatted_data(absolute_path)
-        except Exception as e:
-            print(e)
-            formatted_data = {}
-        return render(request, "bandit.html", {"formatted_data": formatted_data})
-
-
 class GitlabView(View):
     @superuser_required
     def get(self, request):
