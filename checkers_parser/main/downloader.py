@@ -19,7 +19,7 @@ class GitLabArtifactsDownloader:
             f"?scope=success&per_page=1&name={self.job_name}"
         )
         headers = {"Private-Token": self.access_token}
-        response = requests.get(job_url, headers=headers)
+        response = requests.get(job_url, headers=headers, timeout=30)
 
         if response.status_code == 200:
             job_id = response.json()[0]["id"]
@@ -28,7 +28,8 @@ class GitLabArtifactsDownloader:
                 f"{self.project_id}/jobs/{job_id}/artifacts"
             )
             artifacts_response = requests.get(
-                artifacts_url, headers=headers, allow_redirects=True
+                artifacts_url, headers=headers,
+                allow_redirects=True, timeout=30
             )
 
             if artifacts_response.status_code == 200:
