@@ -1,5 +1,7 @@
 # Code Checkers Parser
 
+#### *last project stable version is on branch "Stable"
+
 ## Supported checkers:
 - **Radon CC & MI** (Tested on versions: ```6.0.1```)
 - **Ruff** (Tested on versions: ```0.1.8```)
