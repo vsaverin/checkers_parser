@@ -20,8 +20,6 @@ Example:
 ```
 SECRET_KEY = "string"
 GITLAB_URL = "https://url.com"
-PROJECT_ID = "id"
-JOB_NAME = "your_job_name"
 ACCESS_TOKEN = "access_token"
 POSTGRES_DB = "local_db"
 POSTGRES_USER = "local_user"
@@ -49,15 +47,37 @@ docker-compose -f deploy/docker-compose.yml up --build
 
 #### After successful build service will be available on port 8008 by default
 
-## Services requires Admin authentication! 
-### Don't forget to create superuser:
+## !!! Services requires Superuser authentication !!! 
+### 4. Create superuser:
 ```commandline
 docker container exec -it container-name /bin/sh 
 python3 manage.py createsuperuser
 ```
 
+### 5. Connect your GitLab project using django admin:
+#### 5.1 Goto:
+```
+https://yourhost.com/admin
+```
+#### 5.2 Open Application
+```commandline
+MAIN -> GitlabProjects
+```
+#### 5.3 Create New Object
+```
+- Project name: Your Custom project name (will be displayed on dashboard)
+- Project Id: id of the gitlab project u want to connect
+- Analysis job name: name of the analysis stage in ur pipeline
+- Bandit filename: name of file to search in ur gitlab artifacts (ex. bandit.json)
+- Ruff filename: name of file to search in ur gitlab artifacts (ex. ruff.json)
+- Radon mi filename: name of file to search in ur gitlab artifacts (ex. radon_mi.json)
+- Radon cc filename: name of file to search in ur gitlab artifacts (ex. radon_cc.json)
+```
+
+
 ## ToDo:
 - ~~Refactoring~~
 - ~~Multiple projects support~~
+- Projects artifacts auto-update (by last proceeded job id)
 - Move Dashboard & Projects to different app
 - Errors catching (with ui)
