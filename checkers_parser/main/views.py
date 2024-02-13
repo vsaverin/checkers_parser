@@ -22,8 +22,7 @@ class GitlabView(View):
     def get(self, request, project_id: int):
         project_data = projects_service.get_project_data(project_id)
         downloader.download_and_extract(
-            project_id=project_id,
-            job_name=project_data.analysis_job_name
+            project_id=project_id, job_name=project_data.analysis_job_name
         )
         return redirect("/")
 

@@ -7,8 +7,8 @@ class GitLabArtifactsDownloader:
     def __init__(self, gitlab_url, access_token):
         self.gitlab_url = gitlab_url
         self.access_token = access_token
-        self.download_path = "artifacts.zip"
-        self.extract_to_folder = "extracted_folder"
+        self.download_path_default = "artifacts.zip"
+        self.extract_to_folder_default = "extracted_folder"
 
     def download_artifacts(self, project_id: int, job_name: str) -> bool:
         job_url = (
@@ -26,12 +26,13 @@ class GitLabArtifactsDownloader:
                 f"{project_id}/jobs/{job_id}/artifacts"
             )
             artifacts_response = requests.get(
-                artifacts_url, headers=headers,
-                allow_redirects=True, timeout=30
+                artifacts_url, headers=headers, allow_redirects=True, timeout=30
             )
 
             if artifacts_response.status_code == 200:
-                with open(self.download_path, "wb") as file:
+                with open(
+                    f"{project_id}/{job_name}/{self.download_path_default}", "wb"
+                ) as file:
                     file.write(artifacts_response.content)
                     print("Artifacts downloaded successfully.")
                     return True
@@ -41,17 +42,19 @@ class GitLabArtifactsDownloader:
             print("Failed to fetch job information.")
         return False
 
-    def extract_artifacts(self):
-        with zipfile.ZipFile(self.download_path, "r") as zip_ref:
-            zip_ref.extractall(self.extract_to_folder)
+    def extract_artifacts(self, project_id: int, job_name: str):
+        with zipfile.ZipFile(
+            f"{project_id}/{job_name}/{self.download_path_default}", "r"
+        ) as zip_ref:
+            zip_ref.extractall(f"{project_id}/{job_name}/{self.extract_to_folder_default}")
             print("Extraction completed successfully.")
 
-    def cleanup(self):
-        if os.path.exists(self.download_path):
-            os.remove(self.download_path)
-            print(f"Removed {self.download_path}")
+    def cleanup(self, project_id: int, job_name: str):
+        if os.path.exists(f"{project_id}/{job_name}/{self.download_path_default}"):
+            os.remove(f"{project_id}/{job_name}/{self.download_path_default}")
+            print(f"Removed {project_id}/{job_name}/{self.download_path_default}")
 
     def download_and_extract(self, project_id: int, job_name: str):
         if self.download_artifacts(project_id=project_id, job_name=job_name):
-            self.extract_artifacts()
-            self.cleanup()
+            self.extract_artifacts(project_id=project_id, job_name=job_name)
+            self.cleanup(project_id=project_id, job_name=job_name)

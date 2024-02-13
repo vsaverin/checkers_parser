@@ -106,6 +106,4 @@ RADON_MI_FILENAME = "radon_mi.txt"
 RADON_CC_FILENAME = "radon_complexity.txt"
 
 GITLAB_URL = os.environ.get("GITLAB_URL")
-PROJECT_ID = os.environ.get("PROJECT_ID")
-JOB_NAME = os.environ.get("JOB_NAME")
 ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
